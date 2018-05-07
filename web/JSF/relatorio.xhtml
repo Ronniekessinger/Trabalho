@@ -1,0 +1,123 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <ui:composition template="/template/template.html">
+        <ui:define name="conteudo">
+            <div class="container well">
+                <div>
+                    <h2>Autor</h2>
+                </div>
+                <div class="tabbable tabs-left">
+                    <ul class="nav nav-tabs" id="abas">
+                        <li class="active" id="aba_autores_realizados"><a href="#autores_realizados" data-toggle="tab"><i class="icon-list-alt"></i> Autores Realizados</a></li>
+                        <li id="aba_autores_realizados"><a href="#" data-toggle="tab"><i class="icon-list-alt"></i>Autores</a></li>
+                    </ul>
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="autores_realizados">
+                            <legend>Autores Realizados</legend>
+                            <h:dataTable styleClass="table table-condensed tabela_lista tablesorter tabela_ordenada" value="#{RelatorioController.listar()}" var="pub">
+                                <h:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="ID Autor"/>
+                                    </f:facet>
+                                    <h:outputText value="#{pub.publicacao.idAutor}"/>
+                                </h:column>
+
+                                <h:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Autor"/>
+                                    </f:facet>
+                                    <h:outputText value="#{AutorController.consultar(pub.publicacao.idAutor).autor.nome}"/>
+                                </h:column>
+
+                                <h:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Data e Hora"/>
+                                    </f:facet>
+                                    <h:outputText value="#{pub.publicacao.dataHora}">
+                                        <f:convertDateTime pattern="dd/MM/yyyy HH:mm"/>
+                                    </h:outputText>
+                                </h:column>
+
+                                <h:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Periodico"/>
+                                    </f:facet>
+                                    <h:outputText value="#{PeriodicoController.consultar(pub.publicacao.idPeriodico).periodico.titulo}"/>
+                                </h:column>
+
+                            </h:dataTable>
+                        </div>
+                        <div class="tab-pane" id="autores_realizados">
+                            <legend>Autores</legend>
+                            <h:dataTable styleClass="table table-condensed tabela_lista tablesorter tabela_ordenada" value="#{RelatorioController.listar()}" var="pub">
+                                <h:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="ID Autor"/>
+                                    </f:facet>
+                                    <h:outputText value="#{pub.publicacao.idAutor}"/>
+                                </h:column>
+
+                                <h:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Autor"/>
+                                    </f:facet>
+                                    <h:outputText value="#{AutorController.consultar(pub.publicacao.idAutor).autor.nome}"/>
+                                </h:column>
+
+                                <h:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Data e Hora"/>
+                                    </f:facet>
+                                    <h:outputText value="#{pub.publicacao.dataHora}">
+                                        <f:convertDateTime pattern="dd/MM/yyyy HH:mm"/>
+                                    </h:outputText>
+                                </h:column>
+
+                                <h:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Periodico"/>
+                                    </f:facet>
+                                    <h:outputText value="#{PeriodicoController.consultar(pub.publicacao.idPeriodico).periodico.titulo}"/>
+                                </h:column>
+
+                                <h:column headerClass="colunas">
+                                    <f:facet name="header">
+                                        <h:outputText value="xxx"/>
+                                    </f:facet>
+                                    <h:outputText value="#{PeriodicoController.consultar(pub.publicacao.idPeriodico).periodico.titulo}">
+                                        <f:convertNumber maxFractionDigits="3" minFractionDigits="2" minIntegerDigits="1" maxIntegerDigits="6" groupingUsed="false" />
+                                    </h:outputText>
+                                </h:column>
+
+                                <f:facet name="footer">
+                                    <div class="input-prepend pull-right span2">
+                                        <span class="add-on">xxx: </span><h:inputText styleClass="input-small" readonly="true" value="#{PeriodicoController.consultar(pub.publicacao.idPeriodico).periodico.titulo}">
+                                            <f:convertNumber maxFractionDigits="3" minFractionDigits="2" minIntegerDigits="1" maxIntegerDigits="6" groupingUsed="false" />
+                                        </h:inputText>
+                                    </div>
+                                </f:facet>
+
+                            </h:dataTable>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </ui:define>
+        <ui:define name="js_adicional">
+            <script>
+                function muda_aba(removeu){
+                    if(removeu != ""){
+                        $("#aba_autores_realizados").removeClass("active");
+                        $("#autores_realizados").removeClass("active");
+                        $("#aba_autores_realizados").addClass("active");
+                        $("#autores_realizados").addClass("active");
+                    }
+                }
+            </script>
+        </ui:define>
+    </ui:composition>
+</html>

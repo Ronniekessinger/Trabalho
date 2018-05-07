@@ -1,0 +1,102 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <ui:composition template="/template/template.html">
+        <ui:define name="conteudo">
+            <div class="container well">
+                <div>
+                    <h2>Categoria</h2>
+                </div>
+                <div class="tabbable tabs-left">
+                    <ul class="nav nav-tabs" id="abas">
+                        <li class="active" id="aba_cadastro_categoria"><a href="#cadastro_categoria" data-toggle="tab"><i class="icon-plus"></i> Cadastrar Categorias</a></li>
+                        <li id="aba_listagem_categoria"><a href="#listagem_categoria" data-toggle="tab"><i class="icon-list-alt"></i> Listar Categorias</a></li>
+                    </ul>
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="cadastro_categoria">
+                            <h:form id="form_cadastro_categoria" styleClass="form-horizontal">
+                                <fieldset>
+                                    <legend>Cadastro de Categorias</legend>
+                                    <h:inputHidden value="#{CategoriaController.categoria.idCategoria}" id="idCategoria" />
+                                    <div class="control-group">
+                                        <label class="control-label required" for="form_cadastro_categoria:nome">Nome: </label>
+                                        <div class="controls">
+                                            <h:inputText value="#{CategoriaController.categoria.nome}" id="nome" maxlength="60" required="true" requiredMessage="Digite o nome" /> <h:message for="nome" styleClass="alert alert-error" />
+                                        </div>
+                                    </div>
+                                    <div class="control-group">
+                                    </div>
+                                </fieldset>
+                                <div class="control-group">
+                                    <div class="controls">
+                                        <h:commandButton value="Limpar" type="reset" styleClass="btn"/>
+                                        <h:outputText value=" "/> 
+                                        <h:commandButton styleClass="btn" action="#{CategoriaController.salvar}" value="Cadastrar"/>
+                                        <br /><br />
+                                        <h:message errorClass="error" for="form_cadastro_categoria" styleClass="alert alert-error" />
+                                    </div>
+                                </div>
+                            </h:form>
+                        </div>
+                        <div class="tab-pane" id="listagem_categoria">
+                            <legend>Listagem de Categorias</legend>
+                            <div>
+                                <h:form id="form_lista_categorias">
+                                    <h:dataTable styleClass="table table-condensed tabela_lista tablesorter tabela_ordenada" value="#{CategoriaController.listar()}" var="cat" columnClasses="span2,,,span1,span1">
+                                        <h:column>
+                                            <f:facet name="header">
+                                                <h:outputText value="ID"/>
+                                            </f:facet>
+                                            <h:outputText value="#{cat.categoria.idCategoria}"/>
+                                        </h:column>
+
+                                        <h:column>
+                                            <f:facet name="header">
+                                                <h:outputText value="Nome"/>
+                                            </f:facet>
+                                            <h:outputText value="#{cat.categoria.nome}" />
+                                        </h:column>
+
+
+                                        <h:column headerClass="coluna_vazia">
+                                            <f:facet name="header">
+                                            </f:facet>
+                                            <h:commandLink styleClass="btn btn-small" action="#{CategoriaController.alterarDados(cat.categoria)}" value="Editar"/>
+                                        </h:column>
+
+                                        <h:column headerClass="coluna_vazia">
+                                            <f:facet name="header">
+                                            </f:facet>
+                                            <h:commandLink styleClass="btn btn-danger btn-small" action="#{cat.remover()}" value="Apagar"/>
+                                        </h:column>
+
+                                    </h:dataTable>
+                                </h:form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </ui:define>
+        <ui:define name="js_adicional">
+            <script>
+                add_atributo_form("form_cadastro_categoria", "nome", "placeholder", "Digite o nome");
+                function muda_aba(removeu){
+                    if(removeu != ""){
+                        $("#aba_cadastro_categoria").removeClass("active");
+                        $("#cadastro_categoria").removeClass("active");
+                        $("#aba_listagem_categoria").addClass("active");
+                        $("#listagem_categoria").addClass("active");
+                    }
+                }
+                $(document).ready(function () {
+                    muda_aba("#{param['removeu']}");
+                });
+            </script>
+        </ui:define>
+    </ui:composition>
+</html>
+

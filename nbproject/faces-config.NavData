@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Scene Scope="Project" version="2">
+    <Scope Scope="Faces Configuration Only"/>
+    <Scope Scope="Project">
+        <Node id="404.xhtml" x="400" y="300" zoom="true"/>
+        <Node id="JSF/categoria.xhtml" x="403" y="453" zoom="true"/>
+        <Node id="index.xhtml" x="150" y="150" zoom="true"/>
+        <Node id="JSF/n_relatorio.xhtml" x="150" y="600" zoom="true"/>
+        <Node id="JSF/area.xhtml" x="150" y="750" zoom="true"/>
+        <Node id="JSF/relatorio.xhtml" x="500" y="593" zoom="true"/>
+        <Node id="JSF/publicacao.xhtml" x="150" y="300" zoom="true"/>
+        <Node id="faces/JSF/index.xhtml" x="650" y="150" zoom="true"/>
+        <Node id="resources/lightbox/index.html" x="1075" y="234" zoom="true"/>
+        <Node id="JSF/periodico.xhtml" x="150" y="450" zoom="true"/>
+        <Node id="bemvindo.xhtml" x="650" y="300" zoom="true"/>
+        <Node id="login.xhtml" x="639" y="297" zoom="true"/>
+        <Node id="template/template.html" x="1111" y="264" zoom="true"/>
+        <Node id="JSF/autor.xhtml" x="880" y="480" zoom="true"/>
+        <Node id="loginError.xhtml" x="900" y="150" zoom="true"/>
+        <Node id="JSF/qualis.xhtml" x="480" y="200" zoom="true"/>
+        <Node id="JSF/index.xhtml" x="400" y="150" zoom="true"/>
+    </Scope>
+    <Scope Scope="All Faces Configurations"/>
+</Scene>

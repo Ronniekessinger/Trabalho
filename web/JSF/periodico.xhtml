@@ -1,0 +1,175 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <ui:composition template="/template/template.html">
+        <ui:define name="conteudo">
+            <div class="container well">
+                <div>
+                    <h2>Periódico</h2>
+                </div>
+                <div class="tabbable tabs-left">
+                    <ul class="nav nav-tabs" id="abas">
+                        <li class="active" id="aba_cadastro_periodico"><a href="#cadastro_periodico" data-toggle="tab"><i class="icon-plus"></i> Cadastrar Periódicos</a></li>
+                        <li id="aba_listagem_periodico"><a href="#listagem_periodico" data-toggle="tab"><i class="icon-list-alt"></i> Listar Periódicos</a></li>
+                    </ul>
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="cadastro_periodico">
+                            <h:form id="form_cadastro_periodico" styleClass="form-horizontal">
+                                <fieldset>
+                                    <legend>Cadastro de Periódicos</legend>
+                                    <h:inputHidden value="#{PeriodicoController.periodico.idPeriodico}" id="idPeriodico" />
+                                    <div class="control-group">
+                                        <label class="control-label required" for="form_cadastro_periodico:titulo">Título: </label>
+                                        <div class="controls">
+                                            <h:inputText value="#{PeriodicoController.periodico.titulo}" id="titulo" required="true" requiredMessage="Digite o titulo" maxlength="60" /> <h:message for="titulo" styleClass="alert alert-error" />
+                                        </div>
+                                    </div>
+                                    <div class="control-group">
+                                        <label class="control-label required" for="form_cadastro_periodico:data">Data:</label>
+                                        <div class="controls">
+                                            <h:inputText value="#{PeriodicoController.periodico.data}" id="data" required="true" requiredMessage="Digite a data de nascimento" maxlength="10" >
+                                                <f:convertDateTime pattern="dd/MM/yyyy" />
+                                            </h:inputText> <h:message for="data" styleClass="alert alert-error" />
+                                        </div>
+                                    </div>
+                                    <div class="control-group">
+                                        <label class="control-label" for="form_cadastro_periodico:descricao">Decrição: </label>
+                                        <div class="controls">
+                                            <h:inputText value="#{PeriodicoController.periodico.descricao}" id="descricao" maxlength="60" /> <h:message for="descricao" styleClass="alert alert-error" />
+                                        </div>
+                                    </div>
+                                    <div class="control-group">
+                                        <label class="control-label" for="form_cadastro_periodico:issn">ISSN: </label>
+                                        <div class="controls">
+                                            <h:inputText value="#{PeriodicoController.periodico.issn}" id="issn" maxlength="10" /> <h:message for="issn" styleClass="alert alert-error" />
+                                        </div>
+                                    </div>
+                                    <div class="control-group">
+                                        <label class="control-label" for="form_cadastro_periodico:nacionalidade">Nacionalidade: </label>
+                                        <div class="controls">
+                                            <h:inputText value="#{PeriodicoController.periodico.nacionalidade}" id="nacionalidade" maxlength="60" /> <h:message for="nacionalidade" styleClass="alert alert-error" />
+                                        </div>
+                                    </div>
+                                    <div class="control-group">
+                                        <label class="control-label" for="form_cadastro_periodico:endFoto">Selecione a Foto: </label>
+                                        <div class="controls">
+                                            <h:inputText value="#{PeriodicoController.periodico.endFoto}" id="endFoto" >
+                                            </h:inputText> <h:message for="endFoto" styleClass="alert alert-error" />
+                                        </div>
+                                    </div>
+                                    
+                                </fieldset>
+                                <div class="control-group">
+                                    <div class="controls">
+                                        <h:commandButton value="Limpar" type="reset" styleClass="btn"/>
+                                        <h:outputText value=" "/> 
+                                        <h:commandButton styleClass="btn" action="#{PeriodicoController.salvar}" value="Cadastrar"/> 
+                                        <br /><br />
+                                        <h:message errorClass="error" for="form_cadastro_periodico" styleClass="alert alert-error" />
+                                    </div>
+                                </div>
+                            </h:form>
+                        </div>
+                        <div class="tab-pane" id="listagem_periodico">
+                            <legend>Listagem de Periódicos</legend>
+                            <div>
+                                <h:form id="form_lista_periodicos">
+                                    <h:dataTable styleClass="table table-condensed tabela_lista tablesorter tabela_ordenada" value="#{PeriodicoController.listar()}" var="per" columnClasses="span1,span2,span3,,span1,span2,span2,span2,span1,span1">
+                                        <h:column>
+                                            <f:facet name="header">
+                                                <h:outputText value="ID"/>
+                                            </f:facet>
+                                            <h:outputText value="#{per.periodico.idPeriodico}"/>
+                                        </h:column>
+
+                                        <h:column>
+                                            <f:facet name="header">
+                                                <h:outputText value="Nome"/>
+                                            </f:facet>
+                                            <h:outputText value="#{per.periodico.titulo}" />
+                                        </h:column>
+
+                                        <h:column>
+                                            <f:facet name="header">
+                                                <h:outputText value="Data de Nascimento"/>
+                                            </f:facet>
+                                            <h:outputText value="#{per.periodico.data}" >
+                                                <f:convertDateTime pattern="dd/MM/yyyy" />
+                                            </h:outputText>
+                                        </h:column>
+                                        
+                                        <h:column>
+                                            <f:facet name="header">
+                                                <h:outputText value="EndFoto"/>
+                                            </f:facet>
+                                            <h:outputText value="#{per.periodico.endFoto}" />
+                                        </h:column>
+                                                                                
+                                        <h:column>
+                                            <f:facet name="header">
+                                                <h:outputText value="Logradouro"/>
+                                            </f:facet>
+                                            <h:outputText value="#{per.periodico.descricao}" />
+                                        </h:column>
+                                        
+                                        <h:column>
+                                            <f:facet name="header">
+                                                <h:outputText value="Issn"/>
+                                            </f:facet>
+                                            <h:outputText value="#{per.periodico.issn}" />
+                                        </h:column>
+                                        
+                                        <h:column>
+                                            <f:facet name="header">
+                                                <h:outputText value="Nacionalidade"/>
+                                            </f:facet>
+                                            <h:outputText value="#{per.periodico.nacionalidade}" />
+                                        </h:column>
+
+                                        <h:column headerClass="coluna_vazia">
+                                            <f:facet name="header">
+                                            </f:facet>
+                                            <h:commandLink styleClass="btn btn-small" action="#{PeriodicoController.alterarDados(per.periodico)}" value="Editar"/>
+                                        </h:column>
+
+                                        <h:column headerClass="coluna_vazia">
+                                            <f:facet name="header">
+                                            </f:facet>
+                                            <h:commandLink styleClass="btn btn-danger btn-small" action="#{per.remover()}" value="Apagar"/>
+                                        </h:column>
+
+                                    </h:dataTable>
+                                </h:form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </ui:define>
+        <ui:define name="js_adicional">
+            <script>
+                function muda_aba(removeu){
+                    if(removeu != ""){
+                        $("#aba_cadastro_periodico").removeClass("active");
+                        $("#cadastro_periodico").removeClass("active");
+                        $("#aba_listagem_periodico").addClass("active");
+                        $("#listagem_periodico").addClass("active");
+                    }
+                }
+                $(document).ready(function () {
+                    muda_aba("#{param['removeu']}");
+                    add_mascara_form("form_cadastro_periodico", "data", "99/99/9999");
+                    add_atributo_form("form_cadastro_periodico", "titulo", "placeholder", "Digite o título");
+                    add_atributo_form("form_cadastro_periodico", "data", "placeholder", "dd/mm/aaaa");
+                    add_atributo_form("form_cadastro_periodico", "descricao", "placeholder", "Digite a descricao");
+                    add_atributo_form("form_cadastro_periodico", "issn", "placeholder", "Digite o número ISSN");
+                    add_atributo_form("form_cadastro_periodico", "nacionalidade", "placeholder", "Digite a nacionalidade");
+                    add_atributo_form("form_cadastro_periodico", "endFoto", "placeholder", "Selecione o arquivo da Foto");
+                });
+            </script>
+        </ui:define>
+    </ui:composition>
+</html>

@@ -1,0 +1,169 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <ui:composition template="/template/template.html">
+        <ui:define name="conteudo">
+            <div class="container well">
+                <div>
+                    <h2>Publicação</h2>
+                </div>
+                <div class="tabbable tabs-left">
+                    <ul class="nav nav-tabs" id="abas">
+                        <li class="active" id="aba_cadastro_publicacao"><a href="#cadastro_publicacao" data-toggle="tab"><i class="icon-plus"></i> Cadastrar Publicações</a></li>
+                        <li id="aba_listagem_publicacao"><a href="#listagem_publicacao" data-toggle="tab"><i class="icon-list-alt"></i> Listar Publicações</a></li>
+                    </ul>
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="cadastro_publicacao">
+                            <h:form  enctype="multipart/form-data" id="form_cadastro_publicacao" styleClass="form-horizontal" >
+                                <fieldset>
+                                    <legend>Cadastro de Publicações</legend>
+                                    <div class="control-group">
+                                        <label class="control-label required" for="form_cadastro_publicacao:titulo">Título: </label>
+                                        <div class="controls">
+                                            <h:inputText value="#{PublicacaoController.publicacao.titulo}" id="titulo" styleClass="input-large"  required="true" /> <h:message for="titulo" styleClass="alert alert-error" />
+                                        </div>
+                                    </div>
+                                    <div class="control-group">
+                                        <label class="control-label required" for="form_cadastro_publicacao:ano">Ano: </label>
+                                        <div class="controls">
+                                            <h:inputText value="#{PublicacaoController.publicacao.ano}" id="ano" styleClass="input-mini" required="true" requiredMessage="Selecione o Ano" /> <h:message for="ano" styleClass="alert alert-error" />
+                                        </div>
+                                    </div>
+                                    <div class="control-group">
+                                        <label class="control-label required" for="form_cadastro_publicacao:periodico">Periódico: </label>
+                                        <div class="controls">
+                                            <h:selectOneMenu value="#{PublicacaoController.idPeriodico}" id="periodico" >  
+                                                <f:selectItems value="#{PeriodicoController.listar()}" var="per" itemLabel="#{per.periodico.titulo}" itemValue="#{per.periodico.idPeriodico}"/>      
+                                            </h:selectOneMenu> <h:message for="periodico" styleClass="alert alert-error" />
+                                        </div>
+                                    </div>
+                                    <div class="control-group">
+                                        <label class="control-label required" for="form_cadastro_publicacao:autor">Autor: </label>
+                                        <div class="controls">
+                                            <h:selectOneMenu value="#{PublicacaoController.idAutor}" id="autor" >  
+                                                <f:selectItems value="#{AutorController.listar()}" var="aut" itemLabel="#{aut.autor.nome}" itemValue="#{aut.autor.idAutor}"/>      
+                                            </h:selectOneMenu> <h:message for="autor" styleClass="alert alert-error" />
+                                        </div>
+                                    </div>
+                                    <div class="control-group">
+                                        <label class="control-label required" for="form_cadastro_publicacao:categoria">Categoria: </label>
+                                        <div class="controls">
+                                            <h:selectOneMenu value="#{PublicacaoController.idCategoria}" id="categoria">
+                                                <f:selectItems value="#{CategoriaController.listar()}" var="cat" itemLabel="#{cat.categoria.nome}" itemValue="#{cat.categoria.idCategoria}"/>      
+                                            </h:selectOneMenu> <h:message for="categoria" styleClass="alert alert-error" />
+                                        </div>
+                                    </div>
+                                    <div class="control-group">
+                                        <label class="control-label required" for="form_cadastro_publicacao:area">Area: </label>
+                                        <div class="controls">
+                                            <h:selectOneMenu value="#{PublicacaoController.idArea}" id="area" >  
+                                                <f:selectItems value="#{AreaController.listar()}" var="are" itemLabel="#{are.area.nome}" itemValue="#{are.area.idArea}"/>      
+                                            </h:selectOneMenu> <h:message for="area" styleClass="alert alert-error" />
+                                        </div>
+                                    </div>
+                                    <div class="control-group">
+                                        <label class="control-label" for="form_cadastro_publicacao:arquivo">Arquivo: </label>
+                                        <div class="controls">
+                                            <h:inputText value="#{PublicacaoController.publicacao.arquivo}" id="arquivo" required="false" requiredMessage="Selecione o Arquivo" /> 
+                                        
+                                        </div>
+                                    </div>
+                                    <div class="control-group">
+                                        <label class="control-label required" for="form_cadastro_publicacao:dataHora">Data e Hora: </label>
+                                        <div class="controls">
+                                            <h:inputText value="#{PublicacaoController.dataHora}" id="dataHora" >
+                                                <f:convertDateTime pattern="dd/MM/yyyy HH:mm" />
+                                            </h:inputText> <h:message for="dataHora" styleClass="alert alert-error" />
+                                        </div>
+                                    </div>
+                                </fieldset>
+                                <div class="control-group">
+                                    <div class="controls">
+                                        <h:commandButton value="Limpar" type="reset" styleClass="btn"/>
+                                        <h:outputText value=" "/> 
+                                        <h:commandButton styleClass="btn" action="#{PublicacaoController.salvar}" value="Cadastrar"/>
+                                        <br /><br />
+                                        <h:message errorClass="error" for="form_cadastro_publicacao" styleClass="alert alert-error" />
+                                    </div>
+                                </div>
+                            </h:form>
+                        </div>
+                        <div class="tab-pane" id="listagem_publicacao">
+                            <legend>Listagem de Publicações</legend>
+                            <div>
+                                <h:form id="form_lista_publicacoes">
+                                    <h:dataTable styleClass="table table-condensed tabela_lista tablesorter tabela_ordenada" value="#{PublicacaoController.listar()}" var="pub" columnClasses="span2,,,,span1">
+                                        <h:column>
+                                            <f:facet name="header">
+                                                <h:outputText value="Data"/>
+                                            </f:facet>
+                                            <h:outputText value="#{pub.publicacao.dataHora}">
+                                                <f:convertDateTime pattern="dd/MM/yyyy HH:mm"/>
+                                            </h:outputText>
+                                        </h:column>
+
+                                        <h:column>
+                                            <f:facet name="header">
+                                                <h:outputText value="Categoria"/>
+                                            </f:facet>
+                                            <h:outputText value="#{CategoriaController.consultar(pub.publicacao.idCategoria).categoria.nome}" />
+                                        </h:column>
+
+                                        <h:column>
+                                            <f:facet name="header">
+                                                <h:outputText value="Autor"/>
+                                            </f:facet>
+                                            <h:outputText value="#{AutorController.consultar(pub.publicacao.idAutor).autor.nome}" />
+                                        </h:column>
+                                        
+                                        <h:column>
+                                            <f:facet name="header">
+                                                <h:outputText value="Area"/>
+                                            </f:facet>
+                                            <h:outputText value="#{AreaController.consultar(pub.publicacao.idArea).area.nome}" />
+                                        </h:column>
+                                        
+                                        <h:column>
+                                            <f:facet name="header">
+                                                <h:outputText value="Periodico"/>
+                                            </f:facet>
+                                            <h:outputText value="#{PeriodicoController.consultar(pub.publicacao.idPeriodico).periodico.titulo}" />
+                                        </h:column>
+
+                                        <h:column headerClass="coluna_vazia">
+                                            <f:facet name="header">
+                                            </f:facet>
+                                            <h:commandLink styleClass="btn btn-danger btn-small" action="#{pub.remover()}" value="Apagar"/>
+                                        </h:column>
+
+                                    </h:dataTable>
+                                </h:form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </ui:define>
+        <ui:define name="js_adicional">
+            <script>
+                function muda_aba(removeu){
+                    if(removeu != ""){
+                        $("#aba_cadastro_publicacao").removeClass("active");
+                        $("#cadastro_publicacao").removeClass("active");
+                        $("#aba_listagem_publicacao").addClass("active");
+                        $("#listagem_publicacao").addClass("active");
+                    }
+                }
+                $(document).ready(function () {
+                    muda_aba("#{param['removeu']}");
+                    add_mascara_form("form_cadastro_publicacao", "dataHora", "99/99/9999 99:99"); //dd/MM/yyyy HH:mm
+                    add_mascara_form("form_cadastro_publicacao", "ano", "9.999"); //y.yyy
+                    add_atributo_form("form_cadastro_publicacao", "dataHora", "placeholder", "dd/mm/aaaa hh:mm"); //dd/MM/yyyy HH:mm
+                });
+            </script>
+        </ui:define>
+    </ui:composition>
+</html>

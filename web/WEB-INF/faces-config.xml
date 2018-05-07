@@ -1,0 +1,239 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<faces-config version="2.0"
+              xmlns="http://java.sun.com/xml/ns/javaee" 
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+              xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd">
+    <managed-bean>
+        <managed-bean-name>UsuarioController</managed-bean-name>
+        <managed-bean-class>controlador.UsuarioController</managed-bean-class>
+    
+        <managed-bean-scope>request</managed-bean-scope></managed-bean>
+        
+    <managed-bean>
+        <managed-bean-name>CategoriaController</managed-bean-name>
+        <managed-bean-class>controlador.CategoriaController</managed-bean-class>
+    
+        <managed-bean-scope>request</managed-bean-scope></managed-bean>
+        
+    <managed-bean>
+        <managed-bean-name>PeriodicoController</managed-bean-name>
+        <managed-bean-class>controlador.PeriodicoController</managed-bean-class>
+    
+        <managed-bean-scope>request</managed-bean-scope></managed-bean>
+        
+    <managed-bean>
+        <managed-bean-name>AutorController</managed-bean-name>
+        <managed-bean-class>controlador.AutorController</managed-bean-class>
+        
+        <managed-bean-scope>request</managed-bean-scope></managed-bean>
+        
+    <managed-bean>
+        <managed-bean-name>AreaController</managed-bean-name>
+        <managed-bean-class>controlador.AreaController</managed-bean-class>
+    
+        <managed-bean-scope>request</managed-bean-scope></managed-bean>
+        
+    <managed-bean>
+        <managed-bean-name>PublicacaoController</managed-bean-name>
+        <managed-bean-class>controlador.PublicacaoController</managed-bean-class>
+    
+        <managed-bean-scope>request</managed-bean-scope></managed-bean>
+        
+    <managed-bean>
+        <managed-bean-name>QualisController</managed-bean-name>
+        <managed-bean-class>controlador.QualisController</managed-bean-class>
+    
+        <managed-bean-scope>request</managed-bean-scope></managed-bean>
+    <managed-bean>
+        <managed-bean-name>RelatorioController</managed-bean-name>
+        <managed-bean-class>controlador.RelatorioController</managed-bean-class>
+    
+        <managed-bean-scope>request</managed-bean-scope></managed-bean>
+        
+    <!-- Categoria -->
+    <navigation-rule>
+        <from-view-id>index.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>login_ok</from-outcome>
+            <to-view-id>faces/JSF/index.xhtml</to-view-id>
+            <redirect/>
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/JSF/categoria.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>removeu_categoria</from-outcome>
+            <to-view-id>/JSF/categoria.xhtml</to-view-id>
+            <redirect>
+                <view-param>
+                    <name>removeu</name>
+                    <value>true</value>
+                </view-param>
+            </redirect>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>nao_removeu_categoria</from-outcome>
+            <to-view-id>/JSF/categoria.xhtml</to-view-id>
+            <redirect>
+                <view-param>
+                    <name>removeu</name>
+                    <value>false</value>
+                </view-param>
+            </redirect>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>alterar_categoria</from-outcome>
+            <to-view-id>/JSF/categoria.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    <!-- Periódico -->
+    <navigation-rule>
+        <from-view-id>/JSF/periodico.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>removeu_periodico</from-outcome>
+            <to-view-id>/JSF/periodico.xhtml</to-view-id>
+            <redirect>
+                <view-param>
+                    <name>removeu</name>
+                    <value>true</value>
+                </view-param>
+            </redirect>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>nao_removeu_periodico</from-outcome>
+            <to-view-id>/JSF/periodico.xhtml</to-view-id>
+            <redirect>
+                <view-param>
+                    <name>removeu</name>
+                    <value>false</value>
+                </view-param>
+            </redirect>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>alterar_periodico</from-outcome>
+            <to-view-id>/JSF/periodico.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    <!-- Autor -->
+    <navigation-rule>
+        <from-view-id>/JSF/autor.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>removeu_autor</from-outcome>
+            <to-view-id>/JSF/autor.xhtml</to-view-id>
+            <redirect>
+                <view-param>
+                    <name>removeu</name>
+                    <value>true</value>
+                </view-param>
+            </redirect>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>nao_removeu_autor</from-outcome>
+            <to-view-id>/JSF/autor.xhtml</to-view-id>
+            <redirect>
+                <view-param>
+                    <name>removeu</name>
+                    <value>false</value>
+                </view-param>
+            </redirect>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>alterar_autor</from-outcome>
+            <to-view-id>/JSF/autor.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    <!-- Area -->
+    <navigation-rule>
+        <from-view-id>/JSF/area.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>removeu_area</from-outcome>
+            <to-view-id>/JSF/area.xhtml</to-view-id>
+            <redirect>
+                <view-param>
+                    <name>removeu</name>
+                    <value>true</value>
+                </view-param>
+            </redirect>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>nao_removeu_area</from-outcome>
+            <to-view-id>/JSF/area.xhtml</to-view-id>
+            <redirect>
+                <view-param>
+                    <name>removeu</name>
+                    <value>false</value>
+                </view-param>
+            </redirect>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>alterar_area</from-outcome>
+            <to-view-id>/JSF/area.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    <!-- Publicação -->
+    <navigation-rule>
+        <from-view-id>/JSF/publicacao.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>removeu_publicacao</from-outcome>
+            <to-view-id>/JSF/publicacao.xhtml</to-view-id>
+            <redirect>
+                <view-param>
+                    <name>removeu</name>
+                    <value>true</value>
+                </view-param>
+            </redirect>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>nao_removeu_publicacao</from-outcome>
+            <to-view-id>/JSF/publicacao.xhtml</to-view-id>
+            <redirect>
+                <view-param>
+                    <name>removeu</name>
+                    <value>false</value>
+                </view-param>
+            </redirect>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>alterar_publicacao</from-outcome>
+            <to-view-id>/JSF/publicacao.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    
+    <!-- Qualis -->
+    <navigation-rule>
+        <from-view-id>/JSF/qualis.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>removeu_qualis</from-outcome>
+            <to-view-id>/JSF/qualis.xhtml</to-view-id>
+            <redirect>
+                <view-param>
+                    <name>removeu</name>
+                    <value>true</value>
+                </view-param>
+            </redirect>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>nao_removeu_area</from-outcome>
+            <to-view-id>/JSF/qualis.xhtml</to-view-id>
+            <redirect>
+                <view-param>
+                    <name>removeu</name>
+                    <value>false</value>
+                </view-param>
+            </redirect>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>alterar_qualis</from-outcome>
+            <to-view-id>/JSF/qualis.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    
+    
+    <navigation-rule>
+        <from-view-id>/JSF/consulta_relatorio.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>consultar_relatorio</from-outcome>
+            <to-view-id>/JSF/relatorio.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+</faces-config>

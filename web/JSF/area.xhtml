@@ -1,0 +1,98 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <ui:composition template="/template/template.html">
+        <ui:define name="conteudo">
+            <div class="container well">
+                <div>
+                    <h2>Area</h2>
+                </div>
+                <div class="tabbable tabs-left">
+                    <ul class="nav nav-tabs" id="abas">
+                        <li class="active" id="aba_cadastro_area"><a href="#cadastro_area" data-toggle="tab"><i class="icon-plus"></i> Cadastrar Areas</a></li>
+                        <li id="aba_listagem_area"><a href="#listagem_area" data-toggle="tab"><i class="icon-list-alt"></i> Listar Areas</a></li>
+                    </ul>
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="cadastro_area">
+                            <h:form id="form_cadastro_area" styleClass="form-horizontal">
+                                <fieldset>
+                                    <legend>Cadastro de Areas</legend>
+                                    <h:inputHidden value="#{AreaController.area.idArea}" id="idArea" />
+                                    <div class="control-group">
+                                        <label class="control-label required" for="form_cadastro_area:nome">Nome: </label>
+                                        <div class="controls">
+                                            <h:inputText value="#{AreaController.area.nome}" id="nome" required="true" requiredMessage="Digite o nome" maxlength="40" /> <h:message for="nome" styleClass="alert alert-error" />
+                                        </div>
+                                    </div>                                    
+                                </fieldset>
+                                <div class="control-group">
+                                    <div class="controls">
+                                        <h:commandButton value="Limpar" type="reset" styleClass="btn"/>
+                                        <h:outputText value=" "/> 
+                                        <h:commandButton styleClass="btn" action="#{AreaController.salvar}" value="Cadastrar"/> 
+                                        <br /><br />
+                                        <h:message errorClass="error" for="form_cadastro_area" styleClass="alert alert-error" />
+                                    </div>
+                                </div>
+                            </h:form>
+                        </div>
+                        <div class="tab-pane" id="listagem_area">
+                            <legend>Listagem de Areas</legend>
+                            <div>
+                                <h:form id="form_lista_areas">
+                                    <h:dataTable styleClass="table table-condensed tabela_lista tablesorter tabela_ordenada" value="#{AreaController.listar()}" var="are" columnClasses="span1,span2,span3,,span1,span2,span2,span2,span1,span1">
+                                        <h:column>
+                                            <f:facet name="header">
+                                                <h:outputText value="ID"/>
+                                            </f:facet>
+                                            <h:outputText value="#{are.area.idArea}"/>
+                                        </h:column>
+
+                                        <h:column>
+                                            <f:facet name="header">
+                                                <h:outputText value="Nome"/>
+                                            </f:facet>
+                                            <h:outputText value="#{are.area.nome}" />
+                                        </h:column>                                      
+
+                                        <h:column headerClass="coluna_vazia">
+                                            <f:facet name="header">
+                                            </f:facet>
+                                            <h:commandLink styleClass="btn btn-small" action="#{AreaController.alterarDados(are.area)}" value="Editar"/>
+                                        </h:column>
+
+                                        <h:column headerClass="coluna_vazia">
+                                            <f:facet name="header">
+                                            </f:facet>
+                                            <h:commandLink styleClass="btn btn-danger btn-small" action="#{are.remover()}" value="Apagar"/>
+                                        </h:column>
+
+                                    </h:dataTable>
+                                </h:form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </ui:define>
+        <ui:define name="js_adicional">
+            <script>
+                function muda_aba(removeu){
+                    if(removeu != ""){
+                        $("#aba_cadastro_area").removeClass("active");
+                        $("#cadastro_area").removeClass("active");
+                        $("#aba_listagem_area").addClass("active");
+                        $("#listagem_area").addClass("active");
+                    }
+                }
+                $(document).ready(function () {
+                    muda_aba("#{param['removeu']}");
+                    add_atributo_form("form_cadastro_area", "nome", "placeholder", "Digite o nome");
+                });
+            </script>
+        </ui:define>
+    </ui:composition>
+</html>

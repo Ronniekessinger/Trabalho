@@ -1,0 +1,142 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <ui:composition template="/template/template.html">
+        <ui:define name="conteudo">
+            <div class="container well">
+                <div>
+                    <h2>Qualis</h2>
+                </div>
+                <div class="tabbable tabs-left">
+                    <ul class="nav nav-tabs" id="abas">
+                        <li class="active" id="aba_cadastro_qualis"><a href="#cadastro_qualis" data-toggle="tab"><i class="icon-plus"></i> Cadastrar Qualis</a></li>
+                        <li id="aba_listagem_qualis"><a href="#listagem_qualis" data-toggle="tab"><i class="icon-list-alt"></i> Listar Qualis</a></li>
+                    </ul>
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="cadastro_qualis">
+                            <h:form id="form_cadastro_qualis" styleClass="form-horizontal">
+                                <fieldset>
+                                    <legend>Cadastro de Qualis</legend>
+                                    <h:inputHidden value="#{QualisController.qualis.idQualis}" id="idQualis" />
+                                    <div class="control-group">
+                                        <label class="control-label required" for="form_cadastro_qualis:classificacao">Classificação: </label>
+                                        <div class="controls">
+                                            <h:inputText value="#{QualisController.qualis.classificacao}" id="classificacao" required="true" requiredMessage="Digite o classificacao" maxlength="40" /> <h:message for="classificacao" styleClass="alert alert-error" />
+                                        </div>
+                                    </div> 
+                                    <div class="control-group">
+                                        <label class="control-label required" for="form_cadastro_qualis:periodico">Periódico: </label>
+                                        <div class="controls">
+                                            <h:selectOneMenu value="#{QualisController.qualis.idPeriodico}" id="periodico" >  
+                                                <f:selectItems value="#{PeriodicoController.listar()}" var="per" itemLabel="#{per.periodico.titulo}" itemValue="#{per.periodico.idPeriodico}"/>      
+                                            </h:selectOneMenu> <h:message for="periodico" styleClass="alert alert-error" />
+                                        </div>
+                                    </div>
+                                    <div class="control-group">
+                                        <label class="control-label required" for="form_cadastro_qualis:area">Area: </label>
+                                        <div class="controls">
+                                            <h:selectOneMenu value="#{QualisController.qualis.idArea}" id="area" >  
+                                                <f:selectItems value="#{AreaController.listar()}" var="are" itemLabel="#{are.area.nome}" itemValue="#{are.area.idArea}"/>      
+                                            </h:selectOneMenu> <h:message for="area" styleClass="alert alert-error" />
+                                        </div>
+                                    </div> 
+                                    <div class="control-group">
+                                        <label class="control-label required" for="form_cadastro_qualis:ano">Ano: </label>
+                                        <div class="controls">
+                                            <h:inputText value="#{QualisController.qualis.ano}" id="ano" required="true" styleClass="input-mini" requiredMessage="Digite o ano" maxlength="5" /> <h:message for="ano" styleClass="alert alert-error" />
+                                        </div>
+                                    </div>                                 
+                                </fieldset>
+                                <div class="control-group">
+                                    <div class="controls">
+                                        <h:commandButton value="Limpar" type="reset" styleClass="btn"/>
+                                        <h:outputText value=" "/> 
+                                        <h:commandButton styleClass="btn" action="#{QualisController.salvar}" value="Cadastrar"/> 
+                                        <br /><br />
+                                        <h:message errorClass="error" for="form_cadastro_qualis" styleClass="alert alert-error" />
+                                    </div>
+                                </div>
+                            </h:form>
+                        </div>
+                        <div class="tab-pane" id="listagem_qualis">
+                            <legend>Listagem de Qualis</legend>
+                            <div>
+                                <h:form id="form_lista_qualisL">
+                                    <h:dataTable styleClass="table table-condensed tabela_lista tablesorter tabela_ordenada" value="#{QualisController.listar()}" var="qua" columnClasses="span1,span2,span3,,span1,span2,span2,span2,span1,span1">
+                                        <h:column>
+                                            <f:facet name="header">
+                                                <h:outputText value="ID"/>
+                                            </f:facet>
+                                            <h:outputText value="#{qua.qualis.idQualis}"/>
+                                        </h:column>
+
+                                        <h:column>
+                                            <f:facet name="header">
+                                                <h:outputText value="Classificacao"/>
+                                            </f:facet>
+                                            <h:outputText value="#{qua.qualis.classificacao}" />
+                                        </h:column>   
+                                        
+                                        <h:column>
+                                            <f:facet name="header">
+                                                <h:outputText value="Periodico"/>
+                                            </f:facet>
+                                            <h:outputText value="#{PeriodicoController.consultar(qua.qualis.idPeriodico).periodico.titulo}" />
+                                        </h:column> 
+                                        
+                                        <h:column>
+                                            <f:facet name="header">
+                                                <h:outputText value="Area"/>
+                                            </f:facet>
+                                            <h:outputText value="#{AreaController.consultar(qua.qualis.idArea).area.nome}" />
+                                        </h:column> 
+
+                                        <h:column>
+                                            <f:facet name="header">
+                                                <h:outputText value="Ano"/>
+                                            </f:facet>
+                                            <h:outputText value="#{qua.qualis.ano}" />
+                                        </h:column>                                     
+
+                                        <h:column headerClass="coluna_vazia">
+                                            <f:facet name="header">
+                                            </f:facet>
+                                            <h:commandLink styleClass="btn btn-small" action="#{QualisController.alterarDados(qua.qualis)}" value="Editar"/>
+                                        </h:column>
+
+                                        <h:column headerClass="coluna_vazia">
+                                            <f:facet name="header">
+                                            </f:facet>
+                                            <h:commandLink styleClass="btn btn-danger btn-small" action="#{qua.remover()}" value="Apagar"/>
+                                        </h:column>
+
+                                    </h:dataTable>
+                                </h:form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </ui:define>
+        <ui:define name="js_adicional">
+            <script>
+                function muda_aba(removeu){
+                    if(removeu != ""){
+                        $("#aba_cadastro_qualis").removeClass("active");
+                        $("#cadastro_qualis").removeClass("active");
+                        $("#aba_listagem_qualis").addClass("active");
+                        $("#listagem_qualis").addClass("active");
+                    }
+                }
+                $(document).ready(function () {
+                    muda_aba("#{param['removeu']}");
+                    add_atributo_form("form_cadastro_qualis", "classificacao", "placeholder", "Digite a classificação");
+                    add_mascara_form("form_cadastro_qualis", "ano", "9.999"); //y.yyy
+                });
+            </script>
+        </ui:define>
+    </ui:composition>
+</html>
